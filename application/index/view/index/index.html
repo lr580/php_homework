@@ -15,6 +15,34 @@
 <body>
 	<div class="mdui-container">
 		<!-- <center> -->
+		<div class="mdui-container" style="margin-top: 20px; height: 80px;position: relative;">
+			<div class="mdui-row mdui-container" style="overflow:auto">
+				<div class="mdui-container mdui-col-xs-4" style="width: 300px;">
+					<div class="mdui-textfield mdui-textfield-floating-label ">
+						<i class="mdui-icon material-icons">search</i>
+						<label class="mdui-textfield-label">商品名</label>
+						<input class="mdui-textfield-input" type="text" name="fname"/>
+					</div>
+				</div>
+				<div class="mdui-container mdui-col-xs-4" style="position:absolute; left: 350px; bottom: 9px;">
+					商品种类：&nbsp;
+					<select class="mdui-select" mdui-select>
+						<Option value="">不限</option>
+						{foreach $fclasses as $row}
+						<option value="{$row.fclass}">{$row.fclass}</option>
+						{/foreach}
+					</select>
+				</div>
+				<div class="mdui-container mdui-col-xs-4" style="position:absolute; left: 600px; bottom: 0px;">
+					<p style="float: left; margin-right: 10px; position:relative; bottom: 5px;">商品价格区间：</p>
+					<input class="mdui-textfield-input" type="text" name="minprice" value="0" style="width: 50px; float: left;" />
+					<p style="float: left; margin-left: 10px; margin-right: 10px; position:relative; bottom: 5px;">到</p>
+						<input class="mdui-textfield-input" type="text"name="maxprice" value="1000" style="width: 50px; float: left;"/>
+						<input type="submit" class="mdui-btn" style="float: left;" value="查询">
+				</div>
+			</div>
+		</div>
+
 		<div id="content">
 			<div id="search_div">
 				<form method="post" action="{:url('index/index')}">

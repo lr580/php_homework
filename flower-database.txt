@@ -13,7 +13,7 @@ CREATE TABLE tb_member(
 	)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-	set names gbk;
+	set names utf8;
 
         delete from tb_member;
         insert into tb_member values('a@163.com',md5('123'),'李美','13922312132','佛山南海狮山大学城华南师范大学南海校区',0,0.0);
