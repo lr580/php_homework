@@ -1,0 +1,55 @@
+{include  file="./public/common/top.html"/}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+<div id="content">
+
+		<div id="search_div">
+			<form method="post" action="{:url('index/index')}">
+				<span class="input_span">商品名：<input type="text" name="fname"/></span>
+				<span class="input_span">商品种类：
+				<select name="fclass">
+				<Option value="">不限</option>
+				{foreach $fclasses as $row}
+				<option value="{$row.fclass}">{$row.fclass}</option>
+				{/foreach}
+				</select>
+				</span>
+				<span class="input_span">商品价格区间：<input type="text" name="minprice" value="0"/> - <input type="text" name="maxprice"  value="1000"/></span>
+				<input type="submit" value="查 询">
+			</form>
+		</div>
+
+
+	<div id="prod_content">
+		{foreach $flower as $flower}
+	<div class="prod_div">
+		<a href="{:url('index/flowerdetail')}?flowerID={$flower.flowerID}">
+		<img src="__ROOT__/public/static/picture/{$flower.picturem}" border="0"/>
+		</a>
+		<div id="prod_name_div">{$flower.fname}</div>
+		<div id="prod_price_div">￥{$flower.yourprice}元</div>
+		<div>
+			<div id="gotocart_div">
+			<a href='{:url('cart/addCart')}?flowerID={$flower.flowerID}'>加入购物车		</a>
+</div>					
+			<div id="say_div">{$flower.SelledNum}人购买</div>					
+		</div>
+	</div>
+	{/foreach}
+			
+			<div style="clear: both"></div>
+	</div>
+</div>
+</div>
+	{include file="./public/common/bottom.html"/}
+	
+</center>
+
+</body>
+</html>

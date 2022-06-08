@@ -1,0 +1,66 @@
+﻿{include  file="./public/common/top.html"/}
+<meta charset="utf-8">
+<br><center>
+<form action="{:url('order/doEvaluate')}" method="post" name="f">
+<table style="width:680px; border: 2px solid #EEF8FD;">
+<tr>
+<td colspan=2 style="text-align:center;height:60px;font-weight:bold;">
+评价宝贝---请对您所购买的商品进行评价</td></tr>
+<!--循环开始-->
+{foreach name="results" item="result"}
+<input type="radio" name="pjstar{$result.SLID}" value="5" checked>
+<input type="radio" name="pjstar{$result.SLID}" value="4">
+
+<tr><td rowspan="7" align=center><img src="__ROOT__/public/static/picture/{$result.picturem}">
+<br>{$result.fname}</td>
+<tr>
+<td align=left style="text-align:center;height:150px;">
+<textarea name="pjcontent{$result.SLID}" rows="8" cols="55">{$result.fname}&nbsp;很漂亮，包装精美,送货很准时，。</textarea>
+</td></tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="pjstar{$result.SLID}" value="5" checked>
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;很满意</td>
+</tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="pjstar{$result.SLID}" value="4">
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;满意</td>
+</tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="pjstar{$result.SLID}" value="3">
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;还可以</td>
+</tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="pjstar{$result.SLID}" value="2">
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;一般</td>
+</tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="pjstar{$result.SLID}" value="1">
+<img src="__ROOT__/public/static/image/review_star_fen.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">&nbsp;&nbsp;不满意
+</td></tr>
+<tr><td></td></tr>
+
+<tr><td colspan="2" style="text-align:center;height:60px;">
+<input type="hidden" name="orderID" value="{$result.orderID}">
+<input type="submit" name="s" value="评价">
+</td></tr>
+{/foreach}
+<!--循环结束-->
+</table>
+</form>
+</center>

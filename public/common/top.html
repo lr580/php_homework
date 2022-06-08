@@ -1,0 +1,42 @@
+<meta charset="utf-8">
+<center>
+<table width=999px border=0>
+<tr>
+<td rowspan=2><img src="__ROOT__/public/static/image/logo.jpg" style="width:216px; height:68px"> </td>
+
+<td style="font-size:x-small;">
+
+欢迎光临鲜花礼品网</td>
+<td style="background:url('__ROOT__/public/static/image/topxmenubg.jpg'); font-size:x-small;text-align:center;">
+<a href="{:url('member/showmember')}" style="text-decoration:none;">我的帐户</a>|
+<a href="{:url('order/showorder')}" style="text-decoration:none;">我的订单</a>|
+<a href="{:url('cart/showcart')}" style="text-decoration:none;">购物车</a>|
+</td>
+</tr>
+<tr>
+{$Think.session.email}
+{if condition="$Think.session.email eq ''"}
+<a href="{:url('login/login')}" style="font-size:x-small;text-decoration:none;">登录</a>&nbsp;&nbsp;
+{else}
+<a href="{:url('login/logOut')}" style="font-size:x-small;text-decoration:none;">退出</a>&nbsp;&nbsp;
+{/if}
+
+
+<a href="{:url('register/register')}" style="font-size:x-small;text-decoration:none;">注册</a>&nbsp;&nbsp;
+<a href="{:url('admin/adminlogin/login')}" style="font-size:x-small;text-decoration:none;">后台登录</a>&nbsp;&nbsp;</td>
+<td style="text-align:right;"><img src="__ROOT__/public/static/image/ttel.jpg"></td>
+</tr>
+<tr><td colspan=3 style="background:url('__ROOT__/public/static/image/bg-navbox.png'); font-size: small;text-align:center; width:999px;height:40px">
+ <span style=" color:White;"> |</span> &nbsp; &nbsp; &nbsp;
+    <a href="{:url('index/index')}" style="text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体"> 主页</span></a>
+    &nbsp;&nbsp;&nbsp; <span style=" color:White;"> |</span> &nbsp;&nbsp;&nbsp;
+    <a href="{:url('index/showflower')}"  style=" text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">鲜花</span></a>
+     &nbsp; &nbsp; &nbsp; <span style=" color:White;"> |</span>&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+<tr><td colspan=3 style="background:url('__ROOT__/public/static/image/search_bg.jpg'); font-size: small;text-align:center; width:999px;height:35px">
+<span style="font-weight:bold; font-size:x-small; font-family:宋体">
+</span>
+</td>
+</tr>
+</table></center>

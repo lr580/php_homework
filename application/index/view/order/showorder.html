@@ -1,0 +1,135 @@
+﻿{include  file="./public/common/top.html"/}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<link href="__ROOT__/public/static/css/orderList.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="__ROOT__/public/static/js/jquery-1.4.2.js"></script>
+<style>
+/*分页样式*/  
+.pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}  
+.pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}  
+.pagination .active{background-color: #46A3FF;color: #fff;}  
+.pagination .disabled{color:#aaa;} 
+</style>
+<script>
+//文档就绪事件开始
+$(function(){
+	$(".del").click(function(){	
+	//alert($(this).attr("id"));
+	//$(".del").parents("div").hide();
+	var orderID = $(this).attr("id");
+	$.post("{:url('order/delete')}",{orderID:orderID},function(result){
+	//	alert(result);
+		if(result=='success'){
+			$(".del").parents("div").hide();
+			window.location.href = "{:url('order/showorder')}";
+		}
+	});
+	});
+});
+</script>
+</head>
+<body>
+<center>
+    <div class="no_order_info" >
+    <!-- 提示您暂时没有订单信息 -->
+    {if "$showorder eq ''" }
+    	您还没有添加任何订单！
+    {/if}
+    </div>
+    <!-- 分页显示记录-->
+<div class="pages">{$page}</div>
+
+<!-- 模版数据 -start -->
+ {foreach name="showorder" item="order"}
+	<div style="margin: 0 auto;width:999px;">
+		<dl class="Order_information">
+			<dt><h3>订单信息</h3>	</dt>	
+			<dd style="line-height: 26px;">
+				订单编号：{$order.orderID}
+				<br />
+				下单时间：	{$order.inputtime}
+				<br /> 
+				订单金额：{$order.shifu}
+				<br /> 
+				支付状态：{$order.status}
+				<!-- 订单状态判断 ，未付款订单允许删除！-->
+				{switch name="$order.status"}
+				{case value="未付款"}
+							<font color="red"></font>&nbsp;&nbsp;
+							<a class="del"  href="javascript:void(0)" id="{$order.orderID}" >
+							<img src="__ROOT__/public/static/image/sc.jpg" width="69" height="19"/>
+						</a>
+						&nbsp;
+				 		<a href="{:url('order/pay')}?id={$order.orderID}&money={$order.shifu}"> 
+					 		<img src="__ROOT__/public/static/image/zx.jpg" width="69" height="19">
+						</a>
+				{/case}
+				{case value="已发货"}											
+						<font color="blue"></font>&nbsp;&nbsp;		
+						<a href="{:url('order/orderUpdate')}?orderID={$order.orderID}">确认收货</a>	
+				{/case}
+				{default /}<font color="blue">{$order.status}</font>&nbsp;&nbsp;
+				{/switch}
+				<br /> 
+				收货人： {$order.sname}
+				<br/> 
+				收货地址：{$order.address}
+				<br/> 
+				支付方式：
+			</dd>
+		</dl>
+	
+		<table width="999px" border="0" cellpadding="0"
+			cellspacing="1" style="background:#d8d8d8;color:#333333">
+			<tr>
+				<th width="249" height="30" align="center" valign="middle" bgcolor="#f3f3f3">商品图片</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">商品名称</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">原价</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">现价</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">购买数量</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">总价</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">商品评价</th>
+			</tr>
+			{foreach  $orderlists as $orderlist}
+				{foreach $orderlist as $shoplist}
+					{if($order.orderID eq $shoplist.orderID)}
+			<tr>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">
+				<a href="{:url('index/flowerDetail')}?flowerID={$shoplist.flowerID}">
+					<img src="__ROOT__/public/static/picture/{$shoplist.pictures}" border=0></a>
+				</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.fname}</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.price}元</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.yourprice}元</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.num}件</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.num*$shoplist.yourprice}元</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">
+					{if($order.status eq '未评价')}
+						<a href="{:url('order/evaluate')}?orderID={$shoplist.orderID}">评价</a>
+						 <div class="no_order_info" >
+						    <!-- 提示您暂时没有订单信息 -->
+						    {empty name="showorder"}
+						    	您还没有添加任何订单！
+						 	{/empty}
+					    </div>
+					{/if}
+				</td>
+			</tr>
+					{/if}
+				{/foreach}	
+			{/foreach}
+
+
+		</table>		
+		<div class="Order_price">{$order.shifu}元</div>	
+	</div>
+
+
+	<!-- 模版数据 -end -->
+{/foreach}
+	<div class="pages">{$page}</div>
+	</center>
+</body>
+</html>

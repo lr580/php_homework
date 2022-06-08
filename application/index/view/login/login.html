@@ -1,0 +1,28 @@
+{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<form action="{:url('login/dologin')}" method="post" name=f>
+<table style="width:480px; border-width:3px; border-style:dotted;">
+<tr><td colspan=2 style="text-align:center;height:60px;">请登录鲜花礼品网</td></tr>
+<tr>
+ <td style="text-align:right;height:30px;">E-mail地址：</td>
+<td align=left><input type=text name="email" value="a@163.com"></td>
+</tr>
+<tr>
+<td style="text-align:right;height:30px;">密码：</td>
+<td align=left><input type=password name="passw"></td>
+</tr>
+<tr><td colspan=2 style="text-align:center;height:60px;">
+<input type=submit name=s value="登录">
+</td></tr>
+</table>
+</form>
+</center>
+</body>
+</html>

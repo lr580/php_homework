@@ -1,0 +1,44 @@
+{include  file="./public/common/top.html"/}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<link href="__ROOT__/public/static/css/StyleIndex.css" rel="stylesheet" type="text/css">
+	
+</head>
+<body>
+<center>
+<div class="content">
+<br/>
+欢迎{$member.email}回来。
+我的积分 :{$member.jifen};
+账户余额：{$member.ye}<br/>
+<br/><br/>
+<div class="two"></div>
+<div class="one"><br/>修改密码<br/><br/>
+<form action="{:url('member/changpw')}" method="post" name="f1">
+<table>
+<tr><td>旧密码：</td><td><input type="password" name="oldpassw"></td></tr>
+<tr><td>新密码:</td><td><input type="password" name="newpassw1"></td></tr>
+<tr><td>确认密码:</td><td><input type="password" name="newpassw2"></td></tr>
+<tr><td colspan="2"><input type="submit" name="s" value="修改"></td></tr>
+</table>
+</form>
+</div>
+<div class="two"></div>
+<div class="three"><br/>修改用户信息<br/><br/>
+<form action="{:url('member/changmember')}" method="post" name="f1">
+<table>
+<tr><td>姓名：</td><td><input type="text" name="mname" value="{$member.mname}"></td></tr>
+<tr><td>电话:</td><td><input type="text" name="mobile" value="{$member.mobile}"></td></tr>
+<tr><td>地址:</td><td><input type="text" size="30" name="address" value="{$member.address}"></td></tr>
+<tr><td colspan="2"><input type="submit" name="s" value="修改"></td></tr>
+</table>
+</form>
+</div>
+<br/>
+<br/><br/>
+</div>
+</center>
+</body>
+</html>

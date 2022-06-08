@@ -1,0 +1,126 @@
+{include  file="./public/common/admintop.html"/}
+<meta charset="utf-8">
+<center>
+<br><br>
+
+ <FORM action="{:url('flower/addFlower')}" method="post" enctype="multipart/form-data">
+   <table style="width:550px;border-width:2px;border-style:dotted;">
+   <tr>
+   <td colspan=2 style="background:url('image/ico_60.jpg'); text-align:center; width:650px;">
+   <font size=4>添加鲜花</font>&nbsp;&nbsp;<a href="{:url('flower/index')}">返回</a></td>   
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>编号：</font></td>   
+   <td><input type=text name="flowerID" SIZE=18></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>名称：</font></td>   
+   <td><input type=text name="fname" SIZE=18></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>类别：</font></td>   
+   <td><Select name="myclass" >
+                     <Option value="鲜花">鲜花
+                     <Option value="蛋糕">蛋糕
+                     <Option value="礼篮">礼篮
+                     <Option value="果篮">果篮
+                     <Option value="公仔">公仔
+                   </Select> 
+   </td>  
+   </tr> 
+   <tr>
+   <td style="text-align:right"><font size=2>用途：</font></td>   
+   <td><Select name="fclass" >
+                     <Option value="爱情鲜花">爱情鲜花
+                     <Option value="友情鲜花">友情鲜花
+                     <Option value="生日鲜花">生日鲜花
+                     <Option value="问候长辈">问候 长辈
+                     <Option value="回报老师">回报老师
+                     <Option value="祝福庆贺">祝福庆贺
+                     <Option value="婚庆鲜花">婚庆鲜花
+                     <Option value="探病慰问">探病慰问
+                     <Option value="生子祝贺">生子祝贺
+                     <Option value="道歉鲜花">道歉鲜花
+                     <Option value="家居鲜花">家居鲜花
+                     <Option value="丧葬哀思">丧葬哀思
+                     <Option value="开业乔迁">开业乔迁
+                     <Option value="商务礼仪">商务礼仪
+                   </Select> 
+   </td>  
+   </tr>
+    <tr>
+   <td style="text-align:right"><font size=2>主材料：</font></td>   
+   <td><Select name="fclass1" >
+                     <Option value="玫瑰">玫瑰
+                     <Option value="康乃馨">康乃馨
+                     <Option value="郁金香">郁金香
+                     <Option value="百合">百合
+                     <Option value="扶郎">扶郎
+                     <Option value="马蹄莲">马蹄莲
+                     <Option value="向日葵">向日葵
+                     <Option value="蓝色妖姬">蓝色妖姬
+                   </Select> 
+   </td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>材料：</font></td>   
+   <td><TextArea name="cailiao" Rows="2" Cols="40"></TextArea></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>包装：</font></td>   
+   <td><TextArea name="baozhuang" Rows="2" Cols="40"></TextArea></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>花语：</font></td>   
+   <td><TextArea name="huayu" Rows="3" Cols="40" ></TextArea></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>说明：</font></td>   
+   <td><input type=text name="shuoming" SIZE=40></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>市场价：</font></td>   
+   <td><input type=text name="price" SIZE=18></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>现价：</font></td>   
+   <td><input type=text name="yourprice" SIZE=18></td>  
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>最小图片：</font></td>
+   <td><input type="file" name="pictures" size="24"> </td>
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>图片：</font></td>
+   <td><input type="file" name="picturem" size="24"> </td>
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>大图片：</font></td>
+   <td><input type="file" name="pictureb" size="24"> </td>
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>详细介绍：</font></td>
+   <td><input type="file" name="pictured" size="24"> </td>
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>材料图片：</font></td>
+   <td><input type="file" name="cailiaopicture" size="24"> </td>
+   </tr>
+   <tr>
+   <td style="text-align:right"><font size=2>包装图片：</font></td>
+   <td><input type="file" name="bzpicture" size="24"> </td>
+   </tr>
+   <tr>
+   <tr>
+   <td style="text-align:right"><font size=2>是否特价：</font></td>   
+   <td><Select name="tejia" >
+                     <Option value="是" selected>是
+                     <Option value="否">否
+                   </Select> 
+   </td>  
+   </tr>  
+   <tr>
+   <td colspan=2 style="text-align:center"><INPUT type="submit" name="s" value="提交"></td></tr>
+   </table>
+   </FORM>
+</center>

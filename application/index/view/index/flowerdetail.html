@@ -1,0 +1,76 @@
+﻿{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title></title>
+</head>
+<body>
+<center>
+ <table style='width:830px;border-width:1px;border-style:dotted;align:center;'>
+     <tr>
+        <td rowspan=7 width=200>
+         <img src="__ROOT__/public/static/picture/{$flower.picturem}"></td>
+        <td colspan=2 align=center><div style='font-weight:bold;font-size:medium;height:40px;line-height:40px;color:#000066;text-align:center;border-width:1px;  border-style:solid;border-color:red;'>
+          {$flower.fname}</div></td>          	
+     </tr>
+     <tr>
+       <td width=50><font size=2>材料：</font></td>
+       <td><font size=2>{$flower.cailiao}</font></td> 
+     </tr>
+     <tr>
+     	<td width=50><font size=2>包装：</font></td>
+     	<td><font size=2>{$flower.baozhuang}</font></td>
+     </tr>
+    <tr>
+     	<td width=50><font size=2>花语：</font></td>
+     	<td><font size=2>{$flower.huayu}</font></td>
+     </tr>
+     <tr>
+     	<td width=50><font size=2>说明：</font></td>
+     	<td><font size=2>{$flower.shuoming} </font></td>
+     </tr>
+     <tr>
+     	<td colspan=2><div style='text-align:left;font-size: medium; color: #000066;'>
+     	<div style='text-decoration:line-through;margin-top:8px;'>原价:{$flower.price}</div>
+     	现价：<font size=4 color=red><b>￥{$flower.yourprice}</b></font></div>
+     	</td>
+     </tr>
+     <tr>
+     	<td colspan=2><a href='{:url('cart/addCart')}?flowerID={$flower.flowerID}'>
+     	<img src='__ROOT__/public/static/image/ingwc_ico.jpg' border=0></a></td>
+     </tr>
+     <tr><td colspan=3><img src="__ROOT__/public/static/picture/{$flower.pictured}" border=0></td></tr>
+     <tr><td colspan=3><img src="__ROOT__/public/static/picture/{$flower.cailiaopicture}" border=0></td></tr>
+     <tr><td colspan=3><img src="__ROOT__/public/static/picture/{$flower.bzpicture}" border=0></td></tr>
+ </table>
+
+<table style='width:830px;font-weight:bold;border-width:1px;border-style:dotted;align:center;height:40px;'>
+<tr><td>用户评价</td></tr>
+</table>
+
+<!--评价循环开始 -->
+{foreach name="shoplists" item="shoplist"}
+<table style='width:830px;font-size:small;border-width:1px;border-style:solid;align:center;height:120px;'>
+<tr>
+<td width=130 rowspan=2><img src='__ROOT__/public/static/picture/pictures'><br>
+
+</td>
+<td>整体评价：
+{for start="0" end="$shoplist.pjstar"}
+<img src="__ROOT__/public/static/image/review_star_fen.gif">
+{/for}
+{for start="$shoplist.pjstar" end="5"}
+<img src="__ROOT__/public/static/image/review_star_fen_gray.gif">
+{/for}
+</td>
+<td align=right>评价时间：{$shoplist.pjtime}&nbsp;&nbsp;&nbsp;IP:{$shoplist.pjip}</td>
+</tr>
+<tr><td colspan=2>评价内容：{$shoplist.pjcontent}</tr>
+</table>
+{/foreach}
+<!--评价循环结束-->
+</center>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>购物车</title>
+<script type="text/javascript"
+	src="__ROOT__/public/static/js/jquery-1.4.2.js"></script>
+<script type="text/javascript">
+$(function(){
+	sum();
+	total();
+	chk();
+});
+
+function sum(){
+	$('#goods tr').each(function(){
+		var price = parseFloat($(this).find("td:eq(4)").text());
+		var num	= parseInt($(this).find("input[name='num']").val());
+		$(this).find("td:eq(6)").text(price * num);
+	})
+}
+function total(){
+	var s=0;
+	$('#goods tr').each(function(){
+		if($(this).find("input[type='checkbox']").attr('checked')){
+			var prices = parseFloat($(this).find("td:eq(6)").text());
+			s+=prices;
+		}		
+	})
+	$("#total").text(s);
+}
+
+function change(btn, n,cartID) {
+
+    var t = $(btn).next().length==0? $(btn).prev() : $(btn).next();
+    var num = parseInt(t.val());
+    if(num<=1 && n<0) {
+      return;
+    }
+    
+    t.val(num+n);
+    num = t.val();
+    
+    var tds=$(btn).parent().siblings();
+	var yourprice = tds.eq(4).text();	
+	tds.eq(5).text(yourprice * num);	
+	total();	
+    $.get("{:url('cart/updateCart')}",{"cartID":cartID,"num":num});
+  }
+
+function del(btn,cid){
+	$(btn).parent().parent().remove();
+	total();
+	$.get("{:url('cart/deleteCart')}",{"cartID":cid});
+}
+
+function chk(){
+	total();
+}
+
+</script> 
+</head>
+<body>
+<center>
+
+<img src="__ROOT__/public/static/image/cartbg1.jpg"><br/><br/>
+<form action="{:url('order/order')}" name="form1" method="post">
+<table style="width:881px;border-width:1px; border-style:groove;font-size:x-small;">
+<tr style="background:url('__ROOT__/public/static/image/cartbg.jpg'); text-align:center;font-weight:bold; border-width:1px; border-style:groove;">
+<td>选择</td><td>编号</td><td>商品名称</td><td>市场价</td><td>现价</td><td>数量</td><td>金额</td><td>删除商品</td>
+</tr> 
+<tbody id="goods">
+
+{volist name="result" id="cart"}
+<tr style='text-align:center;height:50px;line-height:50px;'>
+<td><input type="checkbox" name="cartID[]"
+							value="{$cart.cartID}" checked onclick="chk()"></td>
+<td>{$cart.flowerID}</td>
+
+<td><div style='height:50px; float:left;'>
+<img src='__ROOT__/public/static/picture/{$cart.pictures}' width=48 height=51 border=0></div>
+<div style='height:50px; float:left;'>{$cart.fname}</div>
+</td>
+
+<td>{$cart.price}</td>
+<td>{$cart.yourprice}</td>
+
+<td>
+ 
+ <input type="button" value="-" onclick="change(this, -1,{$cart.cartID});"/>
+            <input type="text" size="3" name = "num" readonly value="{$cart.num}"/>
+            <input type="button" value="+" onclick="change(this, 1,{$cart.cartID});"/>
+            
+</td>
+<td></td>
+<td>
+<input type="image" onclick="del(this,{$cart.cartID});" width="41" height="20"
+		src="__ROOT__/public/static/image/04shop_deleteID.gif">
+</td>
+</tr>
+{/volist}
+</tbody>
+				<tr>
+					<td colspan="6" align="right">总计:￥</td>
+					<td id="total" align="right"
+						style="color: red; font-size: 16px; font-bold: true;"></td>
+					<td>元</td>
+				</tr>
+ </table>
+</form>
+
+<div style="float:left;width:881;text-align:right;">
+<a href="{:url('index/index')}"><img src="__ROOT__/public/static/image/continue.jpg" border=0></a>&nbsp;
+<a href="{:url('cart/clearCart')}"><img src="__ROOT__/public/static/image/clearCart.jpg" border=0></a>&nbsp;
+<input type='image' src='__ROOT__/public/static/image/submitOrder.jpg' onclick='javascript:form1.submit()'>
+
+ </center>

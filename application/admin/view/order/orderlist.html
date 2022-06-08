@@ -1,0 +1,104 @@
+{include  file="./public/common/admintop.html"/}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<link href="__ROOT__/public/static/css/orderList.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="__ROOT__/public/static/js/jquery-1.4.2.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$(".del").click(function(){
+			if(confirm("您确定删除该订单吗？")){
+			//获取订单id
+				var oid = $(this).attr("id");				
+				window.location.href="{:url('order/orderDelete')}?orderID="+oid;
+			}
+		});	
+	});
+	</script>
+</head>
+<body>
+<center>
+{empty name="$peisongs"}
+    <div class="no_order_info" >
+    		没有需要发货的订单！
+    </div>
+{/empty}
+
+<!-- 模版数据 -start -->
+ {foreach $peisongs as $order}  
+	
+	<div style="margin: 0 auto;width:999px;">
+		<dl class="Order_information">
+			<dt>
+				<h3>订单信息</h3>				
+			</dt>
+			<table  width="999px" border="0" cellpadding="0" cellspacing="1" style="border-style:groove;background:#d8d8d8;color:#333333;line-height:30px;height:30px;">
+			<tr>
+			<td  style="background:#f3f3d3;width:100px;">订单编号：</td><td style="background:#ffffff;">{$order.orderID}</td>
+			<td  style="background:#f3f3d3;width:100px;">订单状态：</td><td style="background:#ffffff;">{$order.status}</td>
+			</tr><tr>
+					<td style="background:#f3f3d3;width:100px;">收货人：</td><td style="background:#ffffff;"> {$order.sname }</td>
+					<td style="background:#f3f3d3;width:100px;">订单金额：</td><td style="background:#ffffff;">{$order.shifu}</td>
+				</tr><tr>
+				
+			<td style="background:#f3f3d3;width:100px;"> 配送日期：</td>
+			    <td style="background:#ffffff;">{$order.peisongday}</td>	
+				
+				<td  style="background:#f3f3d3;width:100px;">配送时间段：</td>
+				<td style="background:#ffffff;">{$order.peisongtime}</td>
+				</tr>
+				<tr>
+			<td  style="background:#f3f3d3;width:100px;">卡片署名：</td><td style="background:#ffffff;">{$order.buy_name}</td>
+				<td style="background:#f3f3d3;width:100px;">下单时间：</td><td style="background:#ffffff;">{$order.inputtime}</td>	
+				</tr><tr>
+				<td  style="background:#f3f3d3;width:100px;">卡片留言：</td><td colspan="3" style="background:#ffffff;">{$order.message}</td>	
+				
+				</tr><tr>
+				<td  style="background:#f3f3d3;width:100px;">收货地址：</td><td colspan="3" style="background:#ffffff;">{$order.address }</td>
+				</tr><tr>
+				<td  style="background:#f3f3d3;width:100px;">收货人电话：</td><td colspan="3" style="background:#ffffff;">{$order.mobile}</td>
+				</tr></table>
+				
+			<div style="height:40px;font-size:22px;text-align:center;background:#cdcd4b;bold:true;" >
+			<form action="{:url('order/send')}" method="post" name="f">
+				快递单号：<input type="text" name="kddh" value="123123">
+				<input type="hidden" name="orderID" value="{$order.orderID}">
+				<input type="submit" value="发货" name="sub">
+			</form>	</div>
+		</dl>
+			
+		<table width="999px" border="0" cellpadding="0"
+			cellspacing="1" style="background:#d8d8d8;color:#333333">
+			<tr>
+				<th width="249" height="30" align="center" valign="middle" bgcolor="#f3f3f3">商品图片</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">商品名称</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">原价</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">现价</th>
+				<th width="100" align="center" valign="middle" bgcolor="#f3f3f3">购买数量</th>
+				
+			</tr>
+			
+			{foreach  $orderlists as $shoplists}
+				{foreach $shoplists as $shoplist}
+					{if($order.orderID eq $shoplist.orderID)}
+			<tr>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">
+				<a href="{:url('showflower/flowerDetail')}">
+					<img src="__ROOT__/public/static/picture/{$shoplist.pictures}" border=0></a>
+				</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.fname}</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.price }元</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.yourprice }元</td>
+				<td align="center" valign="middle" bgcolor="#FFFFFF">{$shoplist.num }件</td>
+			</tr>
+				{/if}
+				{/foreach}
+			{/foreach}
+		</table>		
+	</div>
+	{/foreach}
+	<!-- 模版数据 -end -->
+	</center>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>鲜花显示</title>
+<link href="__ROOT__/public/static/css/StyleIndex.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<center>
+<div class="content">
+<div class="left">
+{include  file="./public/common/left.html"/}
+</div>
+
+<div class="right">
+
+<div class="page">{$page}</div>
+{foreach $flowers as $flower}
+<table style='width:700px;border-width:1px;border-style:dotted;' align=center>
+     <tr>
+        <td rowspan=7 width=170>
+        <a href="flowerDetail.php?flowerID={$flower.flowerID}">
+        <img src="__ROOT__/public/static/picture/{$flower.picturem}" border=0/>
+        </a></td>
+        <td colspan=2 align=center><div style='font-weight:bold;font-size:medium;height:40px;line-height:40px;color:#000066;text-align:center;border-width:1px;  border-style:solid;border-color:red;'>
+           {$flower.fname}</div></td>          	
+     </tr>
+     <tr>
+       <td width=50><font size=2>材料：</font></td>
+       <td><font size=2>{$flower.cailiao}</font></td> 
+     </tr>
+     <tr>
+     	<td width=50><font size=2>包装：</font></td>
+     	<td><font size=2>{$flower.baozhuang}</font></td>
+     </tr>
+    <tr>
+     	<td width=50><font size=2>花语：</font></td>
+     	<td><font size=2>{$flower.huayu} </font></td>
+     </tr>
+     <tr>
+     	<td width=50><font size=2>说明：</font></td>
+     	<td><font size=2>{$flower.shuoming}</font></td>
+     </tr>
+     <tr>
+     	<td colspan=2><div style='text-align:left;font-size: medium; color: #000066;'>
+     	<div style='text-decoration:line-through;margin-top:8px;'>原价:￥{$flower.price}</div>
+     	现价：<font size=4 color=red><b>￥{$flower.yourprice}</b></font></div>
+     	</td>
+     </tr>
+     <tr>
+     	<td colspan=2><a href='__ROOT__/index.php/index/cart/addcart.html?flowerID={$flower.flowerID}'>
+<img src="__ROOT__/public/static/image/ingwc_ico.jpg" border="0"/></a></td>
+     </tr>
+</table>
+{/foreach}
+
+<div class="page">{$page}</div>
+</div>
+</center>
+</body>
+</html>

@@ -1,0 +1,464 @@
+﻿{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>填写订单</title>
+	<link rel="stylesheet" href="__ROOT__/public/static/css/basic.css" >
+	<link rel="stylesheet" href="__ROOT__/public/static/css/order.css" >
+	<link rel="stylesheet" href="__ROOT__/public/static/font-awesome-4.5.0/css/font-awesome.min.css" >
+	<link rel="icon" href="__ROOT__/public/static/image/icon.png" type="image/png">
+	<script src="__ROOT__/public/static/js/jquery-1.8.3.min.js"></script>	
+<script>
+//文档就绪事件开始
+$(function(){
+		// 设置收货人
+		var name = $("#selectedname").text();
+		var address = $("#selectedaddress").text();
+		var phone = $("#selectedphone").text();
+		var custID = $("#selectedcustID").text();
+		
+		$("input[name=custID]").val(custID);				
+		$("#send-to").text("配送至："+address);
+		$("#send-for").text("收货人："+name+" "+phone);
+		
+		
+		// 选择配送时段和支付方式时
+		$(".time").click(function(){
+			$(this).parent().children(".selected").removeClass("selected").addClass("select");
+			$(this).removeClass("select").addClass("selected");
+			$(this).parent().children("input:hidden").val($(this).text());			
+		});
+		
+		// 切换送花对象时
+		$(".words").hide();
+		$(".words:first").show();
+		$(".for-who").click(function(){
+			var index=$(".send-word>div").index($(this));
+			$(".words").hide();
+			$(".words").eq(index).show();
+			$(".for-who").removeClass("who-selected");
+			$(this).addClass("who-selected");
+		});
+		// 当快速选择赠言时
+		$(".word-select").click(function(){
+			var len=$(this).text().length;
+			var str=$(this).text().substr(2,len-2);
+			
+			$("textarea[name=message]").val(str);
+			$(".type-word").text(202-len);
+		});
+		//当赠言超过200字时
+		$("textarea[name=message]").keyup(function(e){
+			var len=$(this).val().length;
+			var left=200-len;
+			// console.log(len);
+			$(".type-word").text(left);
+			if(left<=0){
+				$(this).val($(this).val().substr(0,199));
+			}
+		});
+		//关闭添加收件人面板
+		$(".close-panel").click(function(){
+			$("#add-panel").hide();
+			$("#hgb").fadeOut("fast");
+		});
+
+		//点击提交
+		$("#submit").click(function(event){
+			var custID=$("input[name='custID']").val();
+			var total = $(".total-price").text();
+			var date=$("input[name=date]").val();
+			var time=$("input[name=time]").val();
+			var message=$("#message").val();
+			var buy_name=$(".buy-name").text();
+			var pay_with=$("input[name=pay-with]").val();
+			$.post('{:url('order/addOrder')}',{
+					custID:custID, 
+					total:total,
+					date:date,
+					time:time,
+					message:message,
+					buy_name:buy_name, 
+					pay_with:pay_with
+				},function(data){
+					if(data=="success"){
+						window.location.href="{:url('order/showorder')}";	
+					}				
+				});
+		});		
+});
+
+
+//文档就绪事件结束	
+
+// 选择收货人
+function Select(obj){
+	var name=$(obj).text();
+	var address=$(obj).parent().find(".address").text();
+	var phone=$(obj).parent().find(".phone").text();
+	var custID=$(obj).parent().find(".custID").text();
+	$(".select-name").removeClass("selected").addClass("select");
+	$(obj).removeClass("select").addClass("selected");
+	
+	$("input[name=custID]").val(custID);
+	
+	$("#send-to").text("配送至："+address);
+	$("#send-for").text("收货人："+name+" "+phone);
+}
+
+//对收货人进行操作
+function ConsigneeOper(member,operation){
+	if("member" == member && operation == "add"){
+		$("#edit-btn").hide();
+		$("#add-panel").show().css({"left":($(window).width()/2-200)});
+		$("#add-btn").show();
+	//	$("#hgb").fadeIn("fast").css({"height":$(window).height(),"top":0});
+		$(".edit-panel>input").val("");
+		
+	}else if(operation == "edit"){
+		$("#add-btn").hide();
+		$("#add-panel").show().css({"left":($(window).width()/2-200)});
+		$("#hgb").fadeIn("fast").css({"height":$(window).height(),"top":0});
+		$("#edit-btn").show();
+		$("#edit-btn").attr('onclick','javascript:SaveConsignee("'+member+'","edit")');
+		var editId="#scn"+member;
+		var editName=$(editId).find(".select-name").text();
+		var address=$(editId).find(".address").text().split(" ");
+		
+		var editProvince=address[0];
+		var editCity=address[1];
+		var editAddr=address[2];
+		if(address.length==1){
+			editProvince="";
+			editAddr=address[0];
+		}
+		var editPhone=$(editId).find(".phone").text();
+		$("#addName").val(editName);
+		$("#addPhone").val(editPhone);
+		$("#addProvince").val(editProvince);
+		$("#addCity").val(editCity);
+		$("#addAddr").val(editAddr);
+		
+	}else if(operation == "default"){
+		var original=$(".default-address").parent();  //默认地址的div
+		var originalID=$(original).attr('id');	 // scn+member  scn1 scn2 scn6
+		
+		var idLen=originalID.length;		
+		var defaultId="#scn"+member;
+		originalID=originalID.substr(3,idLen);  // 4
+		// ajax设置默认
+		$.post("{:url('customer/setDefault')}",{custID:member,originalID:originalID},function(data){
+			if(data=='success'){
+				// 删掉原默认
+				$(original).find("div").attr("class","select select-name");
+				$(original).find(".default-address").remove();
+				$(original).find(".edit").remove();
+				$(original).append('<a class="delete" href="javascript:ConsigneeOper(\''+originalID+'\',\'delete\')">删除</a>'
+							+'<a class="edit" href="javascript:ConsigneeOper(\''+originalID+'\',\'edit\')">编辑</a>'
+							+'<a class="set-default" href="javascript:ConsigneeOper(\''+originalID+'\',\'default\')">设为默认地址</a>');
+				// 新增默认
+				$(defaultId).find("div").attr("class","selected select-name");
+				$(defaultId).find(".delete").remove();
+				$(defaultId).find(".set-default").remove();
+				$(defaultId).append('<span class="default-address">默认地址</span>');
+			}
+		});
+	}else if(operation=="delete"){
+		// ajax删除服务器数据
+		var deleteId="#scn"+member;
+		$.post("{:url('customer/deleteCustomer')}",{"custID":member},function(result){
+			if(result=='success'){
+				$(deleteId).remove();
+			}
+		});
+	}
+	
+}
+// 保存收货人信息SaveConsignee
+function SaveConsignee(member,operation){
+	var addName=$("#addName").val();
+	var addPhone=$("#addPhone").val();
+	var addProvince=$("#addProvince").val();
+	var addCity=$("#addCity").val();
+	var addAddr=$("#addAddr").val();
+	var address=addProvince+" "+addCity+" "+addAddr;
+	switch(operation){
+		case 'add':	
+			// ajax添加数据
+			$("#hgb").fadeOut("fast");
+			$("#add-panel").hide();
+			$.post("{:url('customer/addCustomer')}",{addName:addName,addPhone:addPhone,address:address},function(data){					
+					
+					if(data['cdefault']=="0"){
+					$(".select-name").removeClass("selected").addClass("select");
+					$("#select-consignee").append(
+						'<div class="bar-info"><div class="selected select-name" onclick="Select(this)">'
+						+addName+'</div><span class="name">'+addName+'</span><span class="address">'+address
+						+'</span><span class="phone">'+addPhone+'</span>'						
+						+'<a class="delete" href="javascript:ConsigneeOper(\''+data+'\',\'delete\')">删除</a>'
+							+'<a class="edit" href="javascript:ConsigneeOper(\''+data+'\',\'edit\')">编辑</a>'
+							+'<a class="set-default" href="javascript:ConsigneeOper(\''+data+'\',\'default\')">设为默认地址</a></div>');
+				
+					}else{
+						$(".select-name").removeClass("selected").addClass("select");
+						$("#select-consignee").append(
+								'<div class="bar-info"><div class="selected select-name" onclick="Select(this)">'
+								+addName+'</div><span class="name">'+addName+'</span><span class="address">'+address
+								+'</span><span class="phone">'+addPhone+'</span>'						
+								+'<span class="default-address">默认地址</span>'
+									+'<a class="edit" href="javascript:ConsigneeOper(\''+data+'\',\'edit\')">编辑</a></div>');
+						
+					}
+									
+					$("input[name=custID]").val(data['custID']);
+				
+					$("#send-to").text("配送至："+address);
+					$("#send-for").text("收货人："+addName+" "+addPhone);
+			});
+			break;
+		case 'edit':
+			//ajax更新服务器数据
+			$("#hgb").fadeOut("fast");
+			$("#add-panel").hide();
+			var editId="#scn"+member;
+			$.post("{:url('customer/editCustomer')}",{addName:addName,addPhone:addPhone,address:address,custID:member},function(data){
+				// console.log(data);
+				if(data=='success'){
+					$(editId).find(".select-name").text(addName);
+					$(editId).find(".name").text(addName);
+					$(editId).find(".address").text(address);
+					$(editId).find(".phone").text(addPhone);
+				}
+			});
+			break;
+	}
+}
+//保存订购人
+function AddBuyer(){
+	var name=$("#buy-name").val();
+	var phone=$("#buy-phone").val();
+	var email=$("#buy-email").val();
+	// ajax更新服务器数据
+	$("#add-buyer").parent().text("").append('<span class="buy-name">'+name
+		+'</span><span class="buy-phone">'+phone+'</span><span class="buy-email">'+email+'</span>'
+				+'<a href="javascript:EditBuyer()" class="edit-buy">编辑</a>');
+	$.post("{:url('member/editMember')}",{name:name,phone:phone});
+}
+// 修改订购人
+function EditBuyer(){
+	var name=$(".buy-name").text();
+	var phone=$(".buy-phone").text();
+	var email=$(".buy-email").text();
+	// ajax更新服务器数据
+	$(".edit-buy").parent().text("").append('<input id="buy-name" type="text" placeholder="您的姓名">'
+				+'<input id="buy-phone" type="text" placeholder="手机号码或电话">'
+				+'<input id="buy-email" class="disabled" type="text" value="hhccrr@foxmail.com" disabled="disabled">'
+				+'<button onclick="AddBuyer()" id="add-buyer">确定</button>');
+	$("#buy-name").val(name);
+	$("#buy-phone").val(phone);
+	$("#buy-email").val(email);
+	$.post("{:url('member/editMember')}",{name:name,phone:phone});
+}
+</script>
+</head>
+<body>
+<center>
+	<div id="section">
+		<div id="center">
+		<div class="edit-order">
+			<div class="order-info">
+				<div class="info-bar">
+					<span>填写订单信息</span>
+				</div>
+			</div>
+			<div id="select-consignee" class="order-bar">
+				<div class="bar-title">
+					<span>收货人信息</span>
+					<a href="javascript:ConsigneeOper('member','add')">新增收货人+</a>
+				</div>
+				
+				
+				{if condition="$Customers neq ''"}
+				
+				{foreach $Customers as $Customer}
+				{if condition="$Customer.cdefault eq '1' "}
+					{assign name="isSelect" value="selected"}
+				{else/}
+					{assign name="isSelect" value="select"}
+				{/if}
+				
+				<input type="hidden" name="custID" value="{$Customer.custID}">
+				
+				<div id="scn{$Customer.custID}" class="bar-info">	 		
+					<div class="{$isSelect} select-name" onclick="Select(this)">{$Customer.sname}</div>
+					
+					<span class="custID" id="{$isSelect}custID" style="display:none;">{$Customer.custID}</span>
+					
+					<span class="name" id="{$isSelect}name">{$Customer.sname}</span>
+					<span class="address" id="{$isSelect}address">{$Customer.address}</span>
+					<span class="phone" id="{$isSelect}phone">{$Customer.mobile}</span>
+					
+				
+				{if condition="$Customer.cdefault eq '1' "}
+					<span class="default-address">默认地址</span>
+					<a class="edit" href="javascript:ConsigneeOper('{$Customer.custID}','edit')">编辑</a>
+			
+				{else/}
+				
+					<a class="delete" href="javascript:ConsigneeOper('{$Customer.custID}','delete')">删除</a>
+					<a class="edit" href="javascript:ConsigneeOper('{$Customer.custID}','edit')">编辑</a>
+					<a class="set-default" href="javascript:ConsigneeOper('{$Customer.custID}','default')">设为默认地址</a>
+				{/if}
+				</div>
+				
+{/foreach}
+		{/if}
+			
+
+			</div>
+			<div class="order-bar">
+				<div class="bar-title">
+					<span>订购人信息</span>
+				</div>
+				<div class="bar-info">
+				 {if condition="$member.mname eq '' "}
+					<input id="buy-name" type="text" placeholder="您的姓名" >
+				{else/}
+					<input id="buy-name" type="text" value="{$member.mname}">
+				{/if}
+				{if condition="$member.mobile eq '' "}
+					<input id="buy-phone" type="text" placeholder="手机号码或电话">
+				{else/}
+					<input id="buy-phone" type="text" value="{$member.mobile}">
+				{/if}
+					<input id="buy-email" class="disabled" type="text" value="{$member.email}" disabled="disabled">
+					<button id="add-buyer" onclick="AddBuyer()">确定</button>
+					
+				</div>
+			</div>
+			<div class="order-bar">
+				<div class="bar-title">
+					<span class="deliver-time">配送日期</span>
+					<span>配送时段</span>
+				</div>
+				<div class="bar-info">
+					<input name="date" class="date" type="date">
+					<input type="hidden" name="time" value="不限">
+					<div class="selected time">不限</div>
+					<div class="select time">上午</div>
+					<div class="select time">下午</div>
+					<div class="select time">晚上</div>
+					<div class="select time">定时</div>
+				</div>
+			</div>
+			<div class="order-bar">
+				<div class="bar-title">
+					<span>贺卡留言+署名</span>
+				</div><br/>
+				<div>
+				<span class="messagespan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最多200字，您还可以输入<span class="type-word">200</span>字。（仅支持中文，英文）</span><br/>			
+					<textarea name="message" id="message" cols="40" rows="5" placeholder="贺卡留言+署名     最多200字"></textarea>
+					<div class="send-word">
+						<div class="for-who who-selected">送恋人</div>
+						<div class="for-who">送朋友</div>
+						<div class="for-who">送长辈</div>
+						<div class="words">
+							<span class="word-select">1.我多么希望，有一个门口，早晨，阳光照在草上，我们站着，扶着自己的门扇，门很低，但太阳是明亮的。草在结它的种子，风在摇它的叶子，我们站着，不说话，就十分美好。</span>
+							<span class="word-select">2.爱你是我一生无悔的决定，漫天星星都是我注视你的眼睛。无论结局如何，我都知道：此生最爱是你！</span>
+							<span class="word-select">3.我想和你虚度时光，比如低头看鱼，比如把茶杯留在桌子上离开，浪费它们好看的阴影，我还想连落日一起浪费，比如散步，一直消磨到星光满天……</span>
+							<span class="word-select">4.有些情感，无需多么华美，只是简单的遇见，简单的想念，哪怕它只是简单到：拉着你的手，迎着风走！</span>
+							<span class="word-select">5.遇到你我感到很幸福，但是我不能成为世界上最幸福的人，因为我们在一起，我要让你成为世界上最幸福的人。</span>
+						</div>
+						<div class="words">
+							<span class="word-select">1.一切的不顺心都是纸老虎！希望你开心！</span>
+							<span class="word-select">2.这些日子你过得还好吗？也许忙碌改变了我们的生活，但我永远珍惜我们的情谊。</span></span>
+							<span class="word-select">3.有些情感，无需多么华美，只是简单的遇见，简单的想念，哪怕它只是简单到：拉着你的手，迎着风走！</span>
+							<span class="word-select">4.不求同年同月同日生，但求同年同月同日疯</span>
+							<span class="word-select">5.无私无邪无猜无疑的友情无价，你是我买不到的奢华</span>
+						</div>
+						<div class="words">
+							<span class="word-select">1.亲爱的妈妈：您曾用您坚实的臂弯为我撑起一片蓝天；而今，我也要用我日益丰满的羽翼为您遮挡风雨。妈妈，我永远爱您！生日快乐！祝我的美女妈妈越来越青春，身体健康，未来的我可以每个假期带你出去纵横~</span>
+							<span class="word-select">2.妈妈，我是您身边的一只备受关怀的小鸟，今天为您衔来了一束芬芳的鲜花。</span>
+							<span class="word-select">3.引一缕清风，为妈妈带去轻松；采一缕阳光，为妈妈送去芬芳；掬一捧清水，为妈妈消去疲惫；送一束鲜花，为妈妈奉上祝福。祝妈妈生日快乐！</span>
+							<span class="word-select">4.不想时间过得那么快，因为我想有再多一点时间回家陪着你。不要觉得自己老了，在别人眼里，你还只是我姐呢。生日快乐，妈，我爱你！</span>
+							<span class="word-select">5.父爱如山，父爱无言，您总是微笑着担起了整个家庭。在我心中，您是全天下最好的爸爸。</span>
+						</div>
+					</div><br>
+				</div>
+				
+			</div>
+			<div class="order-bar">
+				<div class="bar-title">
+					<span>支付方式</span>
+				</div>
+				<div class="bar-info">
+					<input type="hidden" name="pay-with" value="网上支付">
+					<div class="selected time">网上支付</div>
+					<div class="select time">礼品卡支付</div>
+					<div class="select time">货到付款</div>
+				</div>
+			</div>
+		</div>
+		<div class="edit-order">
+			<div class="order-info">
+				<div class="info-bar">
+					<span>确认订单信息</span>
+				</div>
+				{assign name="total" value="0"}
+				{assign name="sum" value="0"}
+				
+				{volist name="vcart" id="cart"}
+				
+				{assign name="total" value="$total + $cart.num * $cart.yourprice"}
+				{assign name="sum" value="$sum + $cart.num"}
+				
+				<div class="order-bar">
+				<a href="{:url('index/flowerdetail')}?flowerID={$cart.flowerID}">
+					<img class="flower-pic" src="__ROOT__/public/static/picture/{$cart.pictures}" alt="鲜花图片">
+					</a>
+					<div class="flower-desc">
+				<a href="{:url('index/flowerdetail')}?flowerID={$cart.flowerID}">{$cart.fname}</a><br>						
+						<span class="flower-price">{$cart.yourprice}</span>
+						<span class="num">x {$cart.num}</span>
+					</div>
+				</div>								
+				{/volist}
+			</div>
+		</div>
+		<div class="submit-bar">
+			<span>{$sum}件商品，总金额：￥{$total}元</span><br>
+			<span>配送费：￥0元</span><br><br>
+			<span>提交订单应付总额：￥<span class="total-price">{$total}</span>元</span><br>
+			<button id="submit" class="submit">提交订单</button><br><br>
+			<span id="send-to">配送至：</span><br>
+			<span id="send-for">收货人：</span><br>
+		</div>
+
+		<div id="add-panel">
+			<div class="title-bar">
+				<span class="title">添加联系人</span>
+				<span class="close-panel">&times;</span>
+			</div>
+			<div class="edit-panel">
+				<label for="addName">姓名：</label> 
+				<input id="addName" type="text" name="addName"><br>
+				<label for="addPhone">电话：</label>
+				<input id="addPhone" type="number" name="addPhone"><br>
+				<label for="addProvince">省份：</label>
+				<input id="addProvince" type="text" name="addProvince"><br>
+				<label for="addCity">城市：</label>
+				<input id="addCity" type="text" name="addCity"><br>
+				<label for="addAddr">详细地址：</label>
+				<input id="addAddr" type="text" name="addAddr">
+			</div>
+			<button id="add-btn" class="save" onclick="javascript:SaveConsignee('member','add')">保存</button>
+			<button id="edit-btn" class="save">保存</button>
+		</div>
+			
+		</div>
+	</div>
+{include file="./public/common/bottom.html"/}
+</center>
+</body>
+</html>

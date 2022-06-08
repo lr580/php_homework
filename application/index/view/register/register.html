@@ -1,0 +1,43 @@
+﻿{include  file="./public/common/top.html"/}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="__ROOT__/public/static/js/jquery-1.4.2.js"></script>
+	
+</head>
+<body>
+<meta charset="utf-8">
+<br><br><center>
+<form action="{:url('register/doRegister')}" method="post" n="f">
+<table style="width:480px; border-width:3px; border-style:dotted;">
+<tr><td colspan=2 style="text-align:center;height:60px;">
+注册新用户--填写注册信息，输入用户名和密码</td></tr>
+<tr>
+ <td style="text-align:right;height:30px;">E-mail地址：</td>
+<td align=left><input type=text name="email" value="a@163.com" />
+<span></span></td>
+</tr>
+
+<tr>
+<td style="text-align:right;height:30px;">密码：</td>
+<td align=left><input type="password" name="passw1" />
+<span></span></td>
+</tr>
+<tr>
+<td style="text-align:right;height:30px;">确认密码：</td>
+<td align=left><input type="password" name="passw2" />
+<span></span></td>
+</tr>
+
+<tr><td colspan="2" style="text-align:center;height:60px;">
+<input type=submit name=s value="注册">
+</td></tr>
+</table>
+</form>
+{include file="./public/common/bottom.html"/}
+</center>
+</body>
+</html>
