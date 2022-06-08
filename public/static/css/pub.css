@@ -1,0 +1,26 @@
+@CHARSET "gb2312";
+/*---∑÷“≥œ‘ æ----------------------------------------------------------------------*/
+.pages{
+	width:700px;	
+	text-align:right;
+	padding:10px 0;
+	clear:both;
+	background:#f3f3f3;
+	margin:5px 0px 0px 0px;
+}
+.pages a,.pages .current{
+	font-size:12px;
+	font-family:Arial;
+	margin:0 2px;
+	
+}
+.pages a,.pages .current{
+	border:1px solid #5FA623;
+	background:#fff;
+	padding:2px 6px;
+	text-decoration:none;
+}
+.pages .current,.pages a:haver{
+	background:#7AB63F;
+	color:#fff;
+}

@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+body{
+	font-family: 'Open Sans','Helvetica Neue',Arial,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+}
+h2{
+	text-align: center;
+}
+.navbar-brand{
+	padding: 0;
+}
+#footer{
+	margin-top: 100px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #99979c;
+	background-color: #2a2730;
+}
+#footer p{
+	text-align: center;
+}
+.row{
+	border-top: 1px dashed #ccc;
+	/*border-bottom: 1px dashed #ccc;*/
+	padding-top: 20px;
+}
+section .container{
+	border-bottom: 1px dashed #ccc;
+}
+.row .col-sm-2{
+	padding: 15px;
+}
+span.stars{
+	color: #ff8000;
+}
+.media img{
+	width: 50px;
+}

@@ -1,0 +1,77 @@
+@charset "gb2312";
+body {
+	font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+}
+ul li{list-style:none;}
+.clear{clear:both;}
+.lf{float:left;}
+.rt{float:right;}
+/*---订单列表----------------------------------------------------------------------*/
+.Order_information{
+	text-align:left;
+	width:999px;
+	margin-bottom:16px;	
+}
+.Order_information dt{
+	background:#f3f3f3;	
+	height:32px;
+	margin:22px 0px 12px 0px;	
+
+}
+.Order_information dt h3{
+	font-size:20px;
+	text-indent:18px;
+	height:18px;
+	margin:2px 0px 0px 0px;
+}
+.Order_information dd{
+	font-size:15px;
+	line-height:22px;
+	padding-left:18px;
+	color:#333333;
+}
+.Order_information dd img{ 
+	vertical-align:middle;
+	border:none;
+}
+.Order_price{
+	width:999px;
+	text-align:right;
+	color:#F00;
+	font-size:28px;
+	margin:5px 0px 18px;
+	font-weight:bold;
+	border-bottom: 1px solid #CCC;
+	
+}
+.no_order_info{
+	font-size:30px;
+	color:#CA141D;
+	text-align:center;
+	margin: 50px 0px;
+}
+/*---分页显示----------------------------------------------------------------------*/
+.pages{
+	width:999px;	
+	text-align:right;
+	padding:10px 0;
+	clear:both;
+	background:#f3f3f3;
+	margin:5px 0px 0px 0px;
+}
+.pages a,.pages .current{
+	font-size:12px;
+	font-family:Arial;
+	margin:0 2px;
+	
+}
+.pages a,.pages .current{
+	border:1px solid #5FA623;
+	background:#fff;
+	padding:2px 6px;
+	text-decoration:none;
+}
+.pages .current,.pages a:haver{
+	background:#7AB63F;
+	color:#fff;
+}
