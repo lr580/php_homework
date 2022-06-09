@@ -25,6 +25,14 @@ class Login extends Controller
         if($rs['password']!=md5(input('post.passw'))){
             $this->error('密码错误!');
         }
+        $data = input('post.');
+        if(!captcha_check($data['verifyCode'])) {
+            
+            // 校验失败
+            
+            $this->error('验证码不正确');
+            
+        }
         
         session('email',$rs['email']);
         $this->redirect(url('index/index/index'));

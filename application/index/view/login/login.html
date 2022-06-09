@@ -29,7 +29,20 @@
                         <label class="mdui-textfield-label">密码</label>
                         <input class="mdui-textfield-input" type=password name="passw" />
                     </div>
+                    <div class="mdui-textfield">
+						<label class="mdui-textfield-label">验证码</label>            
+						<input type="text" name="verifyCode" class="mdui-textfield-input" placeholder=""> 
+					 </div>  
+					 <!-- 验证码 -->           
+					 <div>
+						{:captcha_img()}
+						<a href="http://localhost:88/php_homework/index.php/index/login/login.html" >
+							点击刷新验证码
+						</a>
+					 </div>  
                 </div>
+                  
+         			
                 <!-- 卡片的按钮 -->
                 <div class="mdui-card-actions">
                     <input class="mdui-btn mdui-ripple mdui-center" type=submit name=s value="登录">
