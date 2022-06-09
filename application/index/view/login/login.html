@@ -1,28 +1,64 @@
-{include  file="./public/common/top.html"/}
+{include file="./public/common/top.html"/}
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
+    <link href="__ROOT__/public/static/mdui/css/mdui.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-<center>
-<form action="{:url('login/dologin')}" method="post" name=f>
-<table style="width:480px; border-width:3px; border-style:dotted;">
-<tr><td colspan=2 style="text-align:center;height:60px;">请登录鲜花礼品网</td></tr>
-<tr>
- <td style="text-align:right;height:30px;">E-mail地址：</td>
-<td align=left><input type=text name="email" value="a@163.com"></td>
-</tr>
-<tr>
-<td style="text-align:right;height:30px;">密码：</td>
-<td align=left><input type=password name="passw"></td>
-</tr>
-<tr><td colspan=2 style="text-align:center;height:60px;">
-<input type=submit name=s value="登录">
-</td></tr>
-</table>
-</form>
-</center>
+    <form action="{:url('login/dologin')}" method="post" name=f>
+        <div class="mdui-container mdui-center" style="margin-top: 50px;width: 500px;">
+            <div class="mdui-card">
+                <!-- 卡片的标题和副标题 -->
+                <div class="mdui-text-center">
+                    <h1>登录</h1>
+                </div>
+                <div style="margin-left:10px;margin-right:10px">
+                    <div class="mdui-textfield">
+                        <label class="mdui-textfield-label">用户名</label>
+                        <input class="mdui-textfield-input" type="text" name="email" value="a@163.com" />
+                    </div>
+                    <div class="mdui-textfield">
+                        <label class="mdui-textfield-label">密码</label>
+                        <input class="mdui-textfield-input" type=password name="passw" />
+                    </div>
+                </div>
+                <!-- 卡片的按钮 -->
+                <div class="mdui-card-actions">
+                    <input class="mdui-btn mdui-ripple mdui-center" type=submit name=s value="登录">
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- <center>
+        <form action="{:url('login/dologin')}" method="post" name=f>
+            <table style="width:480px; border-width:3px; border-style:dotted;">
+                <tr>
+                    <td colspan=2 style="text-align:center;height:60px;">请登录鲜花礼品网</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;height:30px;">E-mail地址：</td>
+                    <td align=left><input type=text name="email" value="a@163.com"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;height:30px;">密码：</td>
+                    <td align=left><input type=password name="passw"></td>
+                </tr>
+                <tr>
+                    <td colspan=2 style="text-align:center;height:60px;">
+                        <input type=submit name=s value="登录">
+                    </td>
+                </tr>
+            </table>
+
+    </center> -->
 </body>
+
 </html>
