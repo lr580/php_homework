@@ -1,35 +1,50 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+	<meta name="renderer" content="webkit" />
+	<meta name="force-rendering" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
+	<link href="__ROOT__/public/static/mdui/css/mdui.css" rel="stylesheet" type="text/css">
+</head>
+
 <body>
-<center>
-{include  file="./public/common/admintop.html"/}
-<meta charset="utf-8">
-<a href="{:url('flower/floweradd')}">添加鲜花</a>
-<table width="999px" border="0" cellpadding="0"
-			cellspacing="1" style="background:#d8d8d8;color:#333333">
-			<tr><th width="100px" height="30" align="center" valign="middle">商品编号</th>
-				<th width="150px" align="center" valign="middle">商品图片</th>
-				<th width="110px" height="30" align="center" valign="middle">商品名称</th>
-				<th width="100px" align="center" valign="middle" >原价</th>
-				<th width="100px" align="center" valign="middle">现价</th>
-				<th width="100px" align="center" valign="middle" >销售数量</th>				
-				<th width="100px" align="center" valign="middle">操作</th>				
-			
-			</tr>
-			{foreach  $flowers as $flower}
-			
-			<tr><td valign="middle" bgcolor="#FFFFFF">{$flower.flowerID}</td>
-				<td align="center" valign="middle" bgcolor="#FFFFFF">
-				<a href="{:url('flower/flowerDetail')}?flowerID={$flower.flowerID}">
-					<img src="__ROOT__/public/static/picture/{$flower.picturem}" width="60" heigth="60" border=0></a>
+	{include file="./public/common/admintop.html"/}
+	<meta charset="utf-8">
+	<a href="{:url('flower/floweradd')}">添加鲜花</a>
+	<div class="mdui-table-fluid ">
+		<table class="mdui-table mdui-table-selectable">
+			<thead>
+				<tr>
+					<th>商品编号</th>
+					<th>商品图片</th>
+					<th>商品名称</th>
+					<th >原价</th>
+					<th>现价</th>
+					<th>销售数量</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			{foreach $flowers as $flower}
+
+			<tr>
+				<td>{$flower.flowerID}</td>
+				<td>
+					<a href="{:url('flower/flowerDetail')}?flowerID={$flower.flowerID}">
+						<img src="__ROOT__/public/static/picture/{$flower.picturem}" width="60" heigth="60"
+							border=0></a>
 				</td>
-				<td valign="middle" bgcolor="#FFFFFF">{$flower.fname}</td>
-				<td valign="middle" bgcolor="#FFFFFF">{$flower.price }元</td>
-				<td valign="middle" bgcolor="#FFFFFF">{$flower.yourprice }元</td>
-				<td valign="middle" bgcolor="#FFFFFF">{$flower.SelledNum }件</td>
-				<td valign="middle"  align="center"  bgcolor="#FFFFFF">
-				<a href="{:url('flower/flowerupdate')}?flowerID={$flower.flowerID}">修改</a>
-				<a href="{:url('flower/flowerDelete')}?flowerID={$flower.flowerID}">删除</a>
+				<td>{$flower.fname}</td>
+				<td>{$flower.price }元</td>
+				<td>{$flower.yourprice }元</td>
+				<td>{$flower.SelledNum }件</td>
+				<td>
+					<a href="{:url('flower/flowerupdate')}?flowerID={$flower.flowerID}">修改</a>
+					<a href="{:url('flower/flowerDelete')}?flowerID={$flower.flowerID}">删除</a>
 				</td>
 			</tr>
 			{/foreach}
-			</table>
-</center></body>
+		</table>
+	</div>
+	<script src="__ROOT__/public/static/mdui/js/mdui.js"></script>
+</body>
