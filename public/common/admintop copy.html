@@ -1,0 +1,37 @@
+﻿<center>
+<meta charset="utf-8">
+<table width=999px border=0>
+<tr>
+<td rowspan=2><img src="__ROOT__/public/static/image/logo.jpg" style="width:216px; height:68px"> </td>
+<td style="font-size:x-small;"</td>
+<td style="background:url('__ROOT__/public/static/image/topxmenubg.jpg'); font-size:x-small;text-align:center;">
+
+{if condition="$Request.session.username neq '' "}
+<a href="{:url('adminlogin/logOut')}" style="text-decoration:none;">退出</a>&nbsp;&nbsp;
+{/if}
+</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right;"><img src="__ROOT__/public/static/image/ttel.jpg"></td>
+</tr>
+<tr><td colspan=3 style="background:url('__ROOT__/public/static/image/bg-navbox.png'); font-size: small;text-align:center; width:999px;height:40px">
+  <span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">&nbsp; &nbsp; &nbsp;
+    <a href="{:url('flower/index')}"  style=" text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">鲜花管理</span></a>
+     &nbsp; &nbsp; &nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="{:url('order/orderlist')}"  style=" text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">订单管理</span></a>
+     &nbsp; &nbsp; &nbsp;|&nbsp;&nbsp;&nbsp;
+     <a href=""  style=" text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">评价管理</span></a>
+     &nbsp; &nbsp; &nbsp;|&nbsp;&nbsp;&nbsp;
+      <a href="{:url('index/index/index')}" style="text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">前台主页</span></a>
+    &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
+    <a href="{:url('index/index')}" style="text-decoration:none;"><span style=" color:White; font-weight:bold; font-size:medium; font-family:宋体">后台主页</span></a>
+    &nbsp;&nbsp;&nbsp;</span>
+   
+</td>
+</tr>
+<tr><td colspan=3 style="background:url('__ROOT__/public/static/image/search_bg.jpg'); font-size: small;text-align:center; width:999px;height:35px">
+
+</td>
+</tr>
+</table></center>
