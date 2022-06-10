@@ -33,18 +33,18 @@ class Index extends Controller
         
         if(!empty($fname)){
             $searchstr.=" and fname like '%$fname%'";
-            //要有空格字符串里面要有''
+            //瑕佹湁绌烘牸瀛楃涓查噷闈㈣鏈�''
         }
         
         $data=Db::table('flower')->where($searchstr)->order('SelledNum desc')->select();
         $this->assign('flower',$data);
-        //要传输数据的时候采用fetch
+        //瑕佷紶杈撴暟鎹殑鏃跺�欓噰鐢╢etch
         return $this->fetch();
     }
     public function showflower(){
-        $data=Db::table('flower')->order('SelledNum','desc')->paginate(5);//排序；分页显示，一页5个
+        $data=Db::table('flower')->order('SelledNum','desc')->paginate(5);//鎺掑簭锛涘垎椤垫樉绀猴紝涓�椤�5涓�
         $this->assign('flowers',$data);
-        $page=$data->render();//导航条
+        $page=$data->render();//瀵艰埅鏉�
         $this->assign('page',$page);
         return $this->fetch();
         

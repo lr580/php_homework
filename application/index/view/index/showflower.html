@@ -19,50 +19,51 @@
 <div class="left">
 {include  file="./public/common/left.html"/}
 </div>
-
 <div class="right">
 
-<div class="page">{$page}</div>
+<!-- <div class="page">{$page}</div> -->
 {foreach $flowers as $flower}
-<table style='width:700px;border-width:1px;border-style:dotted;' align=center>
+<div class="mdui-card mdui-hoverable" style="margin-left: 50px; margin-top: 20px;padding: 16px;border-radius: 9px;display: flex;flex-direction: row;">
+     <div class="flower_img" style="margin: auto;">
+          <a href="flowerDetail.php?flowerID={$flower.flowerID}">
+               <img style="border-radius: 5px;width: 300px;height: 300px;" src="__ROOT__/public/static/picture/{$flower.picturem}" border=0/>
+               </a>
+     </div>
+     <div class="text_con" style="flex-direction: column;padding: 6px;margin-left: 20px;">
+     <div class="flower_name" style="text-align:left;font-size: 30px;font-weight:600;letter-spacing: 2px;">
+          {$flower.fname}
+     
+     </div>
+     <div class="flower_msg" style="display: column;">
+          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">材料：{$flower.cailiao}</div>
+          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">包装：{$flower.baozhuang}</div>
+          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">花语：{$flower.huayu}</div>
+          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">说明：{$flower.shuoming}</div>
+          <div style='margin: 6px;text-align:left;font-size: medium; color: #000066;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>
+               <div style=' text-decoration:line-through;margin-top:8px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>原价:￥{$flower.price}</div>
+               现价：<font style="font-weight: 600;" size=6 color=red><b>￥{$flower.yourprice}</b></font></div> 
+     </div>
+     <div style="margin-top:20px;">
+          
+          <a href='__ROOT__/index.php/index/cart/addcart.html?flowerID={$flower.flowerID}'>
+               <button  class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-text-color-blue-900" style="font-size: 30px;">
+                    <i style="margin: 5px;font-size: 30px;" class="mdui-icon material-icons">&#xe854;</i>加入购物车
+                  </button></a>
+     </div>
+</div>
+<!-- <table style='width:700px;border-width:0px;border-style:dotted;' align=center>
+   
+     
      <tr>
-        <td rowspan=7 width=170>
-        <a href="flowerDetail.php?flowerID={$flower.flowerID}">
-        <img src="__ROOT__/public/static/picture/{$flower.picturem}" border=0/>
-        </a></td>
-        <td colspan=2 align=center><div style='font-weight:bold;font-size:medium;height:40px;line-height:40px;color:#000066;text-align:center;border-width:1px;  border-style:solid;border-color:red;'>
-           {$flower.fname}</div></td>          	
+     	<td colspan=2></td>
      </tr>
-     <tr>
-       <td width=50><font size=2>材料：</font></td>
-       <td><font size=2>{$flower.cailiao}</font></td> 
-     </tr>
-     <tr>
-     	<td width=50><font size=2>包装：</font></td>
-     	<td><font size=2>{$flower.baozhuang}</font></td>
-     </tr>
-    <tr>
-     	<td width=50><font size=2>花语：</font></td>
-     	<td><font size=2>{$flower.huayu} </font></td>
-     </tr>
-     <tr>
-     	<td width=50><font size=2>说明：</font></td>
-     	<td><font size=2>{$flower.shuoming}</font></td>
-     </tr>
-     <tr>
-     	<td colspan=2><div style='text-align:left;font-size: medium; color: #000066;'>
-     	<div style='text-decoration:line-through;margin-top:8px;'>原价:￥{$flower.price}</div>
-     	现价：<font size=4 color=red><b>￥{$flower.yourprice}</b></font></div>
-     	</td>
-     </tr>
-     <tr>
-     	<td colspan=2><a href='__ROOT__/index.php/index/cart/addcart.html?flowerID={$flower.flowerID}'>
-<img src="__ROOT__/public/static/image/ingwc_ico.jpg" border="0"/></a></td>
-     </tr>
-</table>
+</table> -->
+</div>
 {/foreach}
 
-<div class="page">{$page}</div>
+<div class="page">
+     {$page}
+</div>
 </div>
 </center>
 </body>
