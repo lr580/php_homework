@@ -109,9 +109,10 @@
 					<div class="mdui-row">
 						{foreach $flower as $flower}
 						<div class="mdui-col-xs-3">
-							<div class="mdui-card prod_div mdui-hoverable">
+							<div style="border-radius:10px;margin:10px" class="mdui-card prod_div mdui-hoverable">
+							<a href="{:url('index/flowerdetail')}?flowerID={$flower.flowerID}">
 								<div class="mdui-card-media">
-									<a href="{:url('index/flowerdetail')}?flowerID={$flower.flowerID}">
+									
 										<img class="mdui-img-rounded"
 											src="__ROOT__/public/static/picture/{$flower.picturem}">
 										<div class="mdui-card-media-covered mdui-card-media-covered-gradient">
@@ -119,15 +120,17 @@
 												<div class="mdui-card-primary-title">{$flower.fname}</div>
 											</div>
 										</div>
-									</a>
+									
 								</div>
 								<div class="mdui-card-primary">
 									<div class="mdui-card-primary-title price">{$flower.yourprice}元</div>
 									<div class="mdui-card-primary-subtitle">已有{$flower.SelledNum}人购买</div>
 								</div>
+								</a>
 								<div class="mdui-card-actions">
 									<a href='{:url("cart/addCart")}?flowerID={$flower.flowerID}'>
-										<button class="mdui-btn mdui-ripple">加入购物车</button>
+										<button class="mdui-btn mdui-color-theme-accent mdui-ripple"  style="font-color:black;font-weight:200;font-size:16px">
+										<i class="mdui-icon material-icons">&#xe854;</i>加入购物车 </button>
 									</a>
 									<button class="mdui-btn mdui-btn-icon mdui-float-right">
 										<a href="{:url('index/flowerdetail')}?flowerID={$flower.flowerID}">
