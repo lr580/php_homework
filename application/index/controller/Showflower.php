@@ -38,9 +38,9 @@ class Showflower extends Controller
         return $this->fetch('index/showflower');
     }
 
-    protected function renderSideBar($that)
+    public static function renderSideBar($that)
     {
-        $dbname = $this::$dbname;
+        $dbname = Showflower::$dbname;
         // $handler = Db::table($this::$dbname);
         $class0 = Db::query("select distinct fclass from $dbname");
         $class1 = Db::query("select distinct fclass1 from $dbname");

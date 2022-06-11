@@ -3,6 +3,7 @@ namespace app\index\controller;
 use think\Db;
 use app\index\model\Flower;
 use app\index\model\Shoplist;
+use app\index\controller\Showflower;
 use think\Controller;
 class Index extends Controller
 {
@@ -46,6 +47,7 @@ class Index extends Controller
         $this->assign('flowers',$data);
         $page=$data->render();//瀵艰埅鏉�
         $this->assign('page',$page);
+        Showflower::renderSideBar($this);
         return $this->fetch();
         
     }
