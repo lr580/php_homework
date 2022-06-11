@@ -34,14 +34,18 @@ class Showflower extends Controller
         $this->assign('flowers', $data);
         $page = $data->render();
         $this->assign('page', $page);
+        $this->renderSideBar($this);
         return $this->fetch('index/showflower');
+    }
 
-        // $nowpage = input('get.page');
-        // if (!$nowpage) {
-        //     $nowpage = 1;
-        // }
-        // if ($nowpage) {
-        //     $handler->limit(5 * ($nowpage - 1));
-        // }
+    protected function renderSideBar($that)
+    {
+        $dbname = $this::$dbname;
+        // $handler = Db::table($this::$dbname);
+        $class0 = Db::query("select distinct fclass from $dbname");
+        $class1 = Db::query("select distinct fclass1 from $dbname");
+        // dump($class0);
+        $that->assign('fclass', $class0);
+        $that->assign('fclass1', $class1);
     }
 }

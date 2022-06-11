@@ -1,10 +1,16 @@
+<!--ABANDONED-->
 <meta charset="utf-8">
 <!-- Left开始Start-->
 <div class="left">
     <div class="one">
         <div class="left1">&nbsp;&nbsp;&nbsp;&nbsp;鲜花导购</div>
+
         <div class="left2">&nbsp;<img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按用途选购</div>
         <div class="left3">
+            {foreach $fclass as $item}
+            <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue={$item['fclass']}">{$item['fclass']}</a>&nbsp;|&nbsp; {/foreach}
+        </div>
+        <!-- <div class="left3">
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=爱情鲜花">爱情鲜花</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=友情鲜花">友情鲜花</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=生日鲜花">生日鲜花</a><br />
@@ -17,10 +23,14 @@
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=道歉鲜花">道歉鲜花</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=家居鲜花">家居鲜花</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=丧葬哀思">丧葬哀思</a><br />
-        </div>
+        </div> -->
 
         <div class="left2"><img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按花材选购</div>
         <div class="left3">
+            {foreach $fclass1 as $item}
+            <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue={$item['fclass1']}">{$item['fclass1']}</a>&nbsp;|&nbsp; {/foreach}
+        </div>
+        <!-- <div class="left3">
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=玫瑰">玫瑰</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=康乃馨">康乃馨</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=郁金香">郁金香</a>|
@@ -32,7 +42,7 @@
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=蓝色妖姬">蓝色妖姬 </a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=红掌">红掌 </a>|
 
-        </div>
+        </div> -->
         <div class="left2"><img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按价格选购</div>
         <div class="left3">
             <a href="{:url('showflower/clsflower')}?pname=tejia&pvalue=是">特价鲜花</a> |&nbsp; <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=0&pvalue2=100">100元以下鲜花</a>|<br />
