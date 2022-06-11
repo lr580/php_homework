@@ -33,7 +33,9 @@
                 </tr>
                 <tr>
                     <td>状态：</td>
-                    <td>{$item.status}</td>
+                    <td>{$item.status} {eq name="$item.status" value="已付款"}
+                        <a href="#send{$item.orderID}">去发货</a> {/eq}
+                    </td>
                 </tr>
                 <tr>
                     <td>时间：</td>
@@ -83,7 +85,7 @@
                 <dt>
 				<h3>订单信息</h3>				
 			</dt>
-                <table width="999px" border="0" cellpadding="0" cellspacing="1" style="border-style:groove;background:#d8d8d8;color:#333333;line-height:30px;height:30px;">
+                <table width="999px" border="0" cellpadding="0" cellspacing="1" style="border-style:groove;background:#d8d8d8;color:#333333;line-height:30px;height:30px;" id="send{$order.orderID}">
                     <tr>
                         <td style="background:#f3f3d3;width:100px;">订单编号：</td>
                         <td style="background:#ffffff;">{$order.orderID}</td>
