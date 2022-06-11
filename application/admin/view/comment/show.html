@@ -1,0 +1,65 @@
+{include file="./public/common/admintop.html"/}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评价管理</title>
+</head>
+
+<body>
+    <div class="page">
+        {$page}
+    </div>
+    <div>
+        {foreach $comment as $item}
+        <img src="__ROOT__/public/static/picture/{$item.pictures}" alt="" />
+        <table>
+            <tr>
+                <td>orderID:</td>
+                <td>{$item.orderID}</td>
+            </tr>
+            <tr>
+                <td>商品ID:</td>
+                <td>{$item.flowerID}</td>
+            </tr>
+            <tr>
+                <td>商品名:</td>
+                <td>{$item.fname}</td>
+            </tr>
+            <tr>
+                <td>购买数目：</td>
+                <td>{$item.num}</td>
+            </tr>
+            <tr>
+                <td>评价者邮箱：</td>
+                <td>{$item.email}</td>
+            </tr>
+            <tr>
+                <td>评分：</td>
+                <td>
+                    {for start="0" end="$item.pjstar"}
+                    <img src="__ROOT__/public/static/image/review_star_fen.gif"> {/for} {for start="$item.pjstar" end="5"}
+                    <img src="__ROOT__/public/static/image/review_star_fen_gray.gif"> {/for}
+                </td>
+            </tr>
+            <tr>
+                <td>评价内容：</td>
+                <td>{$item.pjcontent}</td>
+            </tr>
+            <tr>
+                <td>评价日期：</td>
+                <td>{$item.pjtime}</td>
+            </tr>
+            <tr>
+                <td>评价IP:</td>
+                <td>{$item.pjip}</td>
+            </tr>
+        </table>
+        <br/> {/foreach}
+    </div>
+</body>
+
+</html>
