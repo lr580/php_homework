@@ -1,70 +1,114 @@
-{include  file="./public/common/top.html"/}
+{include file="./public/common/top.html"/}
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-	<meta name="renderer" content="webkit" />
-	<meta name="force-rendering" content="webkit" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
-	<link href="__ROOT__/public/static/mdui/css/mdui.css" rel="stylesheet" type="text/css">
-<title>鲜花显示</title>
-<link href="__ROOT__/public/static/css/StyleIndex.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
+    <link href="__ROOT__/public/static/mdui/css/mdui.css" rel="stylesheet" type="text/css">
+    <title>鲜花显示</title>
+    <link href="__ROOT__/public/static/css/StyleIndex.css" rel="stylesheet" type="text/css">
+    <script src="__ROOT__/public/static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        function AjaxPage(page) {
+            $.ajax({
+                url: 'showflowerajax',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    page: page
+                }, // 第一个参数是url中的变量名，'page'
+                success: function(data) {
+                    console.log(data);
+                    //$(".page").html(data.pageHtml);
+                    refreshPage(data);
+                }
+            });
+        }
 
+        function refreshPage(res) {
+            // 替换按钮组的Html代码
+            $(".page").html(res['pageHtml']);
+
+            var flowers = res['flowers'];
+            //console.log(flowers);
+            var html = "";
+            //$("#content").html(html);
+            // 通过打印flowers可知它是个对象，而不是数组，flowers.data才是需要显示的数据
+            $.each(flowers.data, function(index, flower) {
+
+                var str = `<div class='mdui-card mdui-hoverable' style='margin-left: 50px; margin-top: 20px;padding: 16px;border-radius: 9px;display: flex;flex-direction: row;'>  <div class='flower_img' style='margin: auto;'>  <a href='flowerDetail.php?flowerID=${flower.flowerID}'>  <img style='border-radius: 5px;width: 300px;height: 300px;' src='__ROOT__/public/static/picture/${flower.picturem}' border=0/>  </a>  </div>  <div class='text_con' style='flex-direction: column;padding: 6px;margin-left: 20px;'>  <div class='flower_name' style='text-align:left;font-size: 30px;font-weight:600;letter-spacing: 2px;'>  ${flower.fname}   </div>  <div class='flower_msg' style='display: column;'>  <div style='text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>材料：${flower.cailiao}</div>  <div style='text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>包装：${flower.baozhuang}</div>  <div style='text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>花语：${flower.huayu}</div>  <div style='text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>说明：${flower.shuoming}</div>  <div style='margin: 6px;text-align:left;font-size: medium; color: #000066;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>  <div style=' text-decoration:line-through;margin-top:8px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>原价:￥${flower.price}</div>  现价：  <font style='font-weight: 600;' size=6 color=red><b>￥${flower.yourprice}</b></font>  </div>  </div>  <div style='margin-top:20px;'>   <a href='__ROOT__/index.php/index/cart/addcart.html?flowerID=${flower.flowerID}'>  <button class='mdui-btn mdui-color-theme-accent mdui-ripple mdui-text-color-blue-900' style='font-size: 30px;'>  <i style='margin: 5px;font-size: 30px;' class='mdui-icon material-icons'>&#xe854;</i>加入购物车  </button>  </a>  </div>  </div></div>`;
+                //  console.log(flower);
+                // 组织Html代码。php中字符串中的变量可以用{$}来表示，js中只能通过“+”拼接
+
+                html += str;
+            });
+            //$("#content").html("");
+            $("#content").html(html);
+        }
+    </script>
 </head>
-<body>
-<center>
-<div class="content">
-<div class="left">
-{include  file="./public/common/left.html"/}
-</div>
-<div class="right">
 
-<!-- <div class="page">{$page}</div> -->
-{foreach $flowers as $flower}
-<div class="mdui-card mdui-hoverable" style="margin-left: 50px; margin-top: 20px;padding: 16px;border-radius: 9px;display: flex;flex-direction: row;">
-     <div class="flower_img" style="margin: auto;">
-          <a href="flowerDetail.php?flowerID={$flower.flowerID}">
-               <img style="border-radius: 5px;width: 300px;height: 300px;" src="__ROOT__/public/static/picture/{$flower.picturem}" border=0/>
-               </a>
-     </div>
-     <div class="text_con" style="flex-direction: column;padding: 6px;margin-left: 20px;">
-     <div class="flower_name" style="text-align:left;font-size: 30px;font-weight:600;letter-spacing: 2px;">
-          {$flower.fname}
-     
-     </div>
-     <div class="flower_msg" style="display: column;">
-          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">材料：{$flower.cailiao}</div>
-          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">包装：{$flower.baozhuang}</div>
-          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">花语：{$flower.huayu}</div>
-          <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">说明：{$flower.shuoming}</div>
-          <div style='margin: 6px;text-align:left;font-size: medium; color: #000066;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>
-               <div style=' text-decoration:line-through;margin-top:8px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>原价:￥{$flower.price}</div>
-               现价：<font style="font-weight: 600;" size=6 color=red><b>￥{$flower.yourprice}</b></font></div> 
-     </div>
-     <div style="margin-top:20px;">
-          
-          <a href='__ROOT__/index.php/index/cart/addcart.html?flowerID={$flower.flowerID}'>
-               <button  class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-text-color-blue-900" style="font-size: 30px;">
+<body>
+    <center>
+        <div class="content">
+            <div class="left">
+                {include file="./public/common/left.html"/}
+            </div>
+            <div class="right" id="content">
+
+                {foreach $flowers as $flower}
+                <div class="mdui-card mdui-hoverable" style="margin-left: 50px; margin-top: 20px;padding: 16px;border-radius: 9px;display: flex;flex-direction: row;">
+                    <div class="flower_img" style="margin: auto;">
+                        <a href="flowerDetail.php?flowerID={$flower.flowerID}">
+                            <img style="border-radius: 5px;width: 300px;height: 300px;" src="__ROOT__/public/static/picture/{$flower.picturem}" border=0/>
+                        </a>
+                    </div>
+                    <div class="text_con" style="flex-direction: column;padding: 6px;margin-left: 20px;">
+                        <div class="flower_name" style="text-align:left;font-size: 30px;font-weight:600;letter-spacing: 2px;">
+                            {$flower.fname}
+
+                        </div>
+                        <div class="flower_msg" style="display: column;">
+                            <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">材料：{$flower.cailiao}</div>
+                            <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">包装：{$flower.baozhuang}</div>
+                            <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">花语：{$flower.huayu}</div>
+                            <div style="text-align: left;margin: 6px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;">说明：{$flower.shuoming}</div>
+                            <div style='margin: 6px;text-align:left;font-size: medium; color: #000066;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>
+                                <div style=' text-decoration:line-through;margin-top:8px;font-weight: 200;color: rgb(72, 72, 72);font-size: 15px;'>原价:￥{$flower.price}</div>
+                                现价：
+                                <font style="font-weight: 600;" size=6 color=red><b>￥{$flower.yourprice}</b></font>
+                            </div>
+                        </div>
+                        <div style="margin-top:20px;">
+
+                            <a href='__ROOT__/index.php/index/cart/addcart.html?flowerID={$flower.flowerID}'>
+                                <button class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-text-color-blue-900" style="font-size: 30px;">
                     <i style="margin: 5px;font-size: 30px;" class="mdui-icon material-icons">&#xe854;</i>加入购物车
-                  </button></a>
-     </div>
-</div>
-<!-- <table style='width:700px;border-width:0px;border-style:dotted;' align=center>
+                  </button>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- <table style='width:700px;border-width:0px;border-style:dotted;' align=center>
    
      
      <tr>
      	<td colspan=2></td>
      </tr>
 </table> -->
-</div>
-{/foreach}
+                </div>
+                {/foreach}
 
-<div class="page">
-     {$page}
-</div>
-</div>
-</center>
+
+            </div>
+            <div class="page">
+                {$pageHtml}
+            </div>
+    </center>
 </body>
+
 </html>
