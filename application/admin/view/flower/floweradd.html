@@ -1,25 +1,34 @@
 {include  file="./public/common/admintop.html"/}
-<meta charset="utf-8">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+	<meta name="renderer" content="webkit" />
+	<meta name="force-rendering" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
+	<link href="__ROOT__/public/static/mdui/css/mdui.css" rel="stylesheet" type="text/css">
+</head>
+
 <center>
 <br><br>
 
  <FORM action="{:url('flower/addFlower')}" method="post" enctype="multipart/form-data">
-   <table style="width:550px;border-width:2px;border-style:dotted;">
+   <table style="width:550px;margin: 20px;" class="mdui-center mdui-shadow-6">
    <tr>
    <td colspan=2 style="background:url('image/ico_60.jpg'); text-align:center; width:650px;">
    <font size=4>添加鲜花</font>&nbsp;&nbsp;<a href="{:url('flower/index')}">返回</a></td>   
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>编号：</font></td>   
-   <td><input type=text name="flowerID" SIZE=18></td>  
+   <td><input type=text name="flowerID" class="mdui-textfield-input"  SIZE=18></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>名称：</font></td>   
-   <td><input type=text name="fname" SIZE=18></td>  
+   <td><input type=text name="fname" SIZE=18 class="mdui-textfield-input" ></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>类别：</font></td>   
-   <td><Select name="myclass" >
+   <td><Select name="myclass" class="mdui-select">
                      <Option value="鲜花">鲜花
                      <Option value="蛋糕">蛋糕
                      <Option value="礼篮">礼篮
@@ -30,7 +39,7 @@
    </tr> 
    <tr>
    <td style="text-align:right"><font size=2>用途：</font></td>   
-   <td><Select name="fclass" >
+   <td><Select name="fclass" class="mdui-select">
                      <Option value="爱情鲜花">爱情鲜花
                      <Option value="友情鲜花">友情鲜花
                      <Option value="生日鲜花">生日鲜花
@@ -50,7 +59,7 @@
    </tr>
     <tr>
    <td style="text-align:right"><font size=2>主材料：</font></td>   
-   <td><Select name="fclass1" >
+   <td><Select name="fclass1" class="mdui-select">
                      <Option value="玫瑰">玫瑰
                      <Option value="康乃馨">康乃馨
                      <Option value="郁金香">郁金香
@@ -64,27 +73,27 @@
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>材料：</font></td>   
-   <td><TextArea name="cailiao" Rows="2" Cols="40"></TextArea></td>  
+   <td><TextArea name="cailiao" class="mdui-textfield-input" ></TextArea></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>包装：</font></td>   
-   <td><TextArea name="baozhuang" Rows="2" Cols="40"></TextArea></td>  
+   <td><TextArea name="baozhuang" class="mdui-textfield-input" ></TextArea></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>花语：</font></td>   
-   <td><TextArea name="huayu" Rows="3" Cols="40" ></TextArea></td>  
+   <td><TextArea name="huayu" class="mdui-textfield-input"  ></TextArea></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>说明：</font></td>   
-   <td><input type=text name="shuoming" SIZE=40></td>  
+   <td><input type=text name="shuoming" SIZE=40 class="mdui-textfield-input" ></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>市场价：</font></td>   
-   <td><input type=text name="price" SIZE=18></td>  
+   <td><input type=text name="price" SIZE=18 class="mdui-textfield-input" ></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>现价：</font></td>   
-   <td><input type=text name="yourprice" SIZE=18></td>  
+   <td><input type=text name="yourprice" SIZE=18 class="mdui-textfield-input" ></td>  
    </tr>
    <tr>
    <td style="text-align:right"><font size=2>最小图片：</font></td>
@@ -113,7 +122,7 @@
    <tr>
    <tr>
    <td style="text-align:right"><font size=2>是否特价：</font></td>   
-   <td><Select name="tejia" >
+   <td><Select name="tejia" class="mdui-select" >
                      <Option value="是" selected>是
                      <Option value="否">否
                    </Select> 
