@@ -1,15 +1,62 @@
 <!--ABANDONED-->
+<head>
 <meta charset="utf-8">
+   <link href="__ROOT__/public/static/css/prodList.css" rel="stylesheet" type="text/css">
+    <link href="__ROOT__/public/static/mdui/css/mdui.css" rel="stylesheet" type="text/css">
+    </head>
 <!-- Left开始Start-->
-<div class="left">
-    <div class="one">
-        <div class="left1">&nbsp;&nbsp;&nbsp;&nbsp;鲜花导购</div>
 
-        <div class="left2">&nbsp;<img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按用途选购</div>
+<div class="select_area" style="display:flex;flex-direction:row;width:1000px;justify-content:center;padding-top:15px">
+   
+        <div style="margin-left:50px">
+        <i class="mdui-icon material-icons">&#xe252;</i>&nbsp&nbsp用途
+		<select onchange="top.location=this.value;" class="mdui-select " mdui-select="{position: 'bottom'}">
+		<option value="{:url('index/showflower')}">全部</option>   
         <div class="left3">
             {foreach $fclass as $item}
-            <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue={$item['fclass']}">{$item['fclass']}</a>&nbsp;|&nbsp; {/foreach}
+        <option value="{:url('showflower/clsflower')}?pname=fclass&pvalue={$item['fclass']}">{$item['fclass']}</option>   
+   <!--   <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue={$item['fclass']}">{$item['fclass']}</a>&nbsp;|&nbsp;   -->  
+            {/foreach}
+       
+        </select>
         </div>
+         
+         
+         
+       <div style="margin-left:50px">
+        <i class="mdui-icon material-icons">&#xe3e3;</i>&nbsp&nbsp花材
+		<select onchange="top.location=this.value;" class="mdui-select " mdui-select="{position: 'bottom'}">
+		
+		<option value="{:url('index/showflower')}">全部</option>   
+        <div class="left3">
+            {foreach $fclass1 as $item}
+        <option value="{:url('showflower/clsflower')}?pname=fclass1&pvalue={$item['fclass1']}">{$item['fclass1']}</option>   
+   <!--   <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue={$item['fclass1']}">{$item['fclass1']}</a>&nbsp;|&nbsp;   -->  
+            {/foreach}
+       
+        </select>
+        </div>
+         
+  <div style="margin-left:50px">
+        <i class="mdui-icon material-icons">&#xe227;</i>&nbsp&nbsp价格
+		<select onchange="top.location=this.value;" class="mdui-select " mdui-select="{position: 'bottom'}">
+		
+		<option value="{:url('index/showflower')}">全部</option>   
+        <option value="{:url('showflower/clsflower')}?pname=tejia&pvalue=是">特价鲜花</option>  
+        <option value="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=0&pvalue2=200">小于200元</option>  
+        <option value="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=200&pvalue2=300">200-300元</option>  
+        <option value="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=300&pvalue2=500">300-500元</option>  
+   		<option value="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=500&pvalue2=800">500-800元</option>  
+      	<option value="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=800&pvalue2=20000">大于800元</option>  
+     
+       
+        </select>
+        </div>
+          
+          </div>
+          
+          
+        
         <!-- <div class="left3">
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=爱情鲜花">爱情鲜花</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=友情鲜花">友情鲜花</a>|
@@ -25,11 +72,11 @@
             <a href="{:url('showflower/clsflower')}?pname=fclass&pvalue=丧葬哀思">丧葬哀思</a><br />
         </div> -->
 
-        <div class="left2"><img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按花材选购</div>
+     <!-- <div class="left2"><img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按花材选购</div>
         <div class="left3">
             {foreach $fclass1 as $item}
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue={$item['fclass1']}">{$item['fclass1']}</a>&nbsp;|&nbsp; {/foreach}
-        </div>
+        </div> -->   
         <!-- <div class="left3">
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=玫瑰">玫瑰</a>|
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=康乃馨">康乃馨</a>|
@@ -43,14 +90,15 @@
             <a href="{:url('showflower/clsflower')}?pname=fclass1&pvalue=红掌">红掌 </a>|
 
         </div> -->
-        <div class="left2"><img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按价格选购</div>
+        <!-- <div class="left2"><img alt="" src="__ROOT__/public/static/image/ico_1.gif" /> 按价格选购</div>
         <div class="left3">
             <a href="{:url('showflower/clsflower')}?pname=tejia&pvalue=是">特价鲜花</a> |&nbsp; <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=0&pvalue2=100">100元以下鲜花</a>|<br />
             <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=100&pvalue2=200">100-200元</a>|&nbsp; <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=200&pvalue2=300">200-300元</a>| <br />
             <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=300&pvalue2=500">300-500元</a>|&nbsp; <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=500&pvalue2=800">500-800元</a>| <br />
             <a href="{:url('showflower/clsflower')}?pname=yourprice&pvalue1=800&pvalue2=20000">800元以上</a>|&nbsp;<br />
-        </div>
-    </div>
+        </div> -->
+        
+  
 
     <!-- <div class="one">
         <div class="left11">&nbsp;&nbsp;&nbsp;&nbsp;蛋糕礼品导购</div>
@@ -95,5 +143,6 @@
         <div class="left13"></div>
         <div class="left3"><img src="__ROOT__/public/static/image/khfw.JPG" /></div>
     </div> -->
-</div>
+
+<script src="__ROOT__/public/static/mdui/js/mdui.js"></script>
 <!-- Left结束End -->
