@@ -7,6 +7,7 @@ use app\index\model\Shoplist;
 use think\Controller;
 use think\Db;
 use think\Request;
+use think\Console;
 
 class Index extends Controller
 {
@@ -80,7 +81,7 @@ class Index extends Controller
 
             $data['flowers'] = $flowers;
             $data['pageHtml'] = $pageHtml;
-
+  
             // 向前端返回Json字符串
             return json($data);
         }
