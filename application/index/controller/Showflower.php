@@ -33,7 +33,7 @@ class Showflower extends Controller
 
         $this->assign('flowers', $data);
         $page = $data->render();
-        $this->assign('page', $page);
+        $this->assign('pageHtml', $page);
         $this->renderSideBar($this);
         return $this->fetch('index/showflower');
     }
