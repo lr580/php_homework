@@ -35,8 +35,13 @@ class Showflower extends Controller
         $page = $data->render();
         $this->assign('pageHtml', $page);
         $this->renderSideBar($this);
+        $this->assign('pname', $pname);
+        $this->assign('pvalue', $pvalue);
+        $this->assign('pvalue1', $pvalue1);
+        $this->assign('pvalue2', $pvalue2);
         return $this->fetch('index/showflower');
     }
+
 
     public static function renderSideBar($that)
     {

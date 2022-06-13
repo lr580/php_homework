@@ -7,7 +7,6 @@ use app\index\model\Shoplist;
 use think\Controller;
 use think\Db;
 use think\Request;
-use think\Console;
 
 class Index extends Controller
 {
@@ -61,6 +60,10 @@ class Index extends Controller
         $this->assign('pageHtml', $pageHtml);
 
         Showflower::renderSideBar($this);
+        $this->assign('pname', '');
+        $this->assign('pvalue', '');
+        $this->assign('pvalue1', '');
+        $this->assign('pvalue2', '');
         return $this->fetch();
     }
     // ajax请求分页内容的方法
@@ -81,7 +84,7 @@ class Index extends Controller
 
             $data['flowers'] = $flowers;
             $data['pageHtml'] = $pageHtml;
-  
+
             // 向前端返回Json字符串
             return json($data);
         }
